@@ -14,13 +14,19 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
       name: grudgeName,
       offense: grudgeOffense
     },
-    success: displayGrudgeList
+    success: function(jsonData) {
+      console.log(jsonData);
+      displayGrudgeList(jsonData);
+      displayGrudgeCount(jsonData);
+    }
   });
 };
 
 
 const displayGrudgeCount = (jsonData) => {
-
+  $.get('api/grudges', (jsonData) => {
+    $('.hate-list-count').html(`Number of offenders: ${jsonData.length}`)
+  });
 };
 
 const clearForm = () => {
@@ -35,6 +41,7 @@ $.get('/api/grudges', (jsonData) => {
                   <li>${grudge.name}<li>
                 `))
   });
+  displayGrudgeCount(jsonData);
 });
 
 $('.add-offender-button').on('click', function() {
