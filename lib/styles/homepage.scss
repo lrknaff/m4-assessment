@@ -1,3 +1,19 @@
 * {
   box-sizing: border-box;
 }
+
+header {
+  .header-copy {
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 25px;
+  }
+
+  hr {
+    background-color: black;
+    border-style: none;
+    height: 10px;
+    width: 75%;
+  }
+}
