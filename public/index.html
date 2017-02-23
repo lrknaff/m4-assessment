@@ -4,9 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grudge Box</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
     <link rel="stylesheet"  type="text/css" href="/styles/index.css">
   </head>
   <body>
-    <div>Hello world!</div>
+    <header>
+      <h1 class="header-copy">
+      I <span>hate</span><br />you.
+      </h1>
+      <hr />
+    </header>
+
+    <section class="hate-form-section">
+      <div class="hate-form">
+        <label>
+          Name of offender:
+          <input class="name-input" type="text" placeholder="Name of offender" />
+        </label>
+        <label>
+          Offense:
+          <input class="offense-input" type="text" placeholder="Offense" />
+        </label>
+        <input class="add-offender-button" type="submit" value="Add" />
+      </div>
+    </section>
+
+    <h3 class="hate-list-count">Number of offenders:</h3>
+    <h3 class="unforgiven-count">Number of unforgiven:</h3>
+    <h3 class="forgiven-count">Number of forgiven:</h3>
+
+    <section class="hate-list-section">
+      <ul class="hate-list"></ul>
+    </section>
   </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </html>
