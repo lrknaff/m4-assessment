@@ -59,6 +59,33 @@ const clearForm = () => {
   $('.name-input').val('')
 };
 
+const sortByName = () => {
+  const sortDirection = $('.sort-by-name').attr("class");
+
+  $.get('/api/grudges', (jsonData) => {
+    let sortedNames = jsonData.sort((a, b) => {
+      const nameA = a.name.replace(/\s+/g, '').toUpperCase();
+      const nameB = b.name.replace(/\s+/g, '').toUpperCase();
+
+      if (nameA < nameB) {
+        return 1;
+      } else if (nameB < nameA) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    $list.html('');
+
+    sortedNames.forEach((grudge) => {
+      $list.append((`
+                    <li>${grudge.name}<li>
+                  `))
+    });
+  });
+};
+
 $.get('/api/grudges', (jsonData) => {
   console.log(jsonData);
   jsonData.forEach((grudge) => {
@@ -77,4 +104,9 @@ $('.add-offender-button').on('click', function() {
 
   addGrudgeToDb(grudgeName, grudgeOffense);
   clearForm();
+});
+
+$('.sort-by-name').on('click', function() {
+  $(this).toggleClass('up');
+  sortByName();
 });
