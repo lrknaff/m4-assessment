@@ -31,20 +31,11 @@ $.get('/api/grudges', (jsonData) => {
   });
 });
 
-$('.add-offender-button').on('click', function(e) {
-  e.preventDefault();
+$('.add-offender-button').on('click', function() {
 
   const grudgeName = $('.name-input').val();
   const grudgeOffense = $('.offense-input').val();
 
-  $.ajax({
-    url: '/api/grudges',
-    type: 'post',
-    data: {
-      name: grudgeName,
-      offense: grudgeOffense
-    }
-  });
-
+  addGrudgeToDb(grudgeName, grudgeOffense);
   clearForm();
 });

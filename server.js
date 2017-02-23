@@ -47,7 +47,6 @@ app.post('/api/grudges', (req, res) => {
           .insert(grudge)
           .returning(['id', 'name', 'forgiven'])
           .then((payload) => {
-            console.log(payload)
             res.status(200).json(payload[0])
           })
           .catch((error) => {
