@@ -86,6 +86,33 @@ const sortByName = () => {
   });
 };
 
+const sortByDate = () => {
+  const sortDirection = $('.sort-by-date').attr("class");
+
+  $.get('/api/grudges', (jsonData) => {
+    let sortedDates = jsonData.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      if (dateA < dateB) {
+        return 1;
+      } else if (dateB < dateA) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    $list.html('');
+
+    sortedDates.forEach((grudge) => {
+      $list.append((`
+                    <li>${grudge.name}<li>
+                  `))
+    });
+  });
+};
+
 $.get('/api/grudges', (jsonData) => {
   console.log(jsonData);
   jsonData.forEach((grudge) => {
@@ -109,4 +136,9 @@ $('.add-offender-button').on('click', function() {
 $('.sort-by-name').on('click', function() {
   $(this).toggleClass('up');
   sortByName();
+});
+
+$('.sort-by-date').on('click', function() {
+  $(this).toggleClass('up');
+  sortByDate();
 });
