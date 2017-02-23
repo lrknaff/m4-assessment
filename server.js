@@ -14,7 +14,7 @@ app.locals.title = 'Grudge Box';
 
 app.use(
      sassMiddleware({
-         src: __dirname + '/sass',
+         src: __dirname + '/lib/styles',
          dest: __dirname + '/public/styles',
          prefix:  '/styles',
          debug: true
