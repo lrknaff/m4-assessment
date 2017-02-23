@@ -10,7 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', process.env.PORT || 3000);
 
-app.locals.title = 'Grudge Box';
+app.locals.title      = 'Grudge Box';
+app.locals.grudgeList = [];
 
 app.use(
      sassMiddleware({
