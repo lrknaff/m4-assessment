@@ -18,6 +18,8 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
       console.log(jsonData);
       displayGrudgeList(jsonData);
       displayGrudgeCount(jsonData);
+      displayUnforgivenCount(jsonData);
+      displayForgivenCount(jsonData);
     }
   });
 };
@@ -25,6 +27,30 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
 const displayGrudgeCount = (jsonData) => {
   $.get('api/grudges', (jsonData) => {
     $('.hate-list-count').html(`Number of offenders: ${jsonData.length}`)
+  });
+};
+
+const displayUnforgivenCount = (jsonData) => {
+  $.get('api/grudges', (jsonData) => {
+    let count = 0;
+    for(var i = 0; i < jsonData.length; i++) {
+      if(jsonData[i].forgiven === false) {
+        count++;
+      }
+    }
+    $('.unforgiven-count').html(`Number of unforgiven: ${count}`)
+  });
+};
+
+const displayForgivenCount = (jsonData) => {
+  $.get('api/grudges', (jsonData) => {
+    let count = 0;
+    for(var i = 0; i < jsonData.length; i++) {
+      if(jsonData[i].forgiven === true) {
+        count++;
+      }
+    }
+    $('.forgiven-count').html(`Number of forgiven: ${count}`)
   });
 };
 
@@ -41,6 +67,8 @@ $.get('/api/grudges', (jsonData) => {
                 `))
   });
   displayGrudgeCount(jsonData);
+  displayUnforgivenCount(jsonData);
+  displayForgivenCount(jsonData);
 });
 
 $('.add-offender-button').on('click', function() {
