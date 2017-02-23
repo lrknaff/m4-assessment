@@ -27,6 +27,16 @@ app.use(
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/api/grudges', (req, res) => {
+  database('grudges').select().table('grudges')
+          .then((grudges) => {
+            res.status(200).json(grudges)
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+});
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on port 3000`)
 })
