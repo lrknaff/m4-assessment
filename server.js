@@ -34,7 +34,25 @@ app.get('/api/grudges', (req, res) => {
           })
           .catch((error) => {
             console.error(error)
+          });
+});
+
+app.post('/api/grudges', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
+  const { name, offense } = req.body;
+  const grudge = { name, offense, forgiven: false, created_at: new Date };
+
+  database('grudges')
+          .insert(grudge)
+          .returning(['id', 'name', 'forgiven'])
+          .then((payload) => {
+            console.log(payload)
+            res.status(200).json(payload[0])
           })
+          .catch((error) => {
+            console.log(error)
+          });
 });
 
 app.listen(app.get('port'), () => {
