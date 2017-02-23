@@ -1,15 +1,24 @@
 const $display = $('.individual-grudge');
+const id = parseInt(window.location.pathname.split("/")[1]);
+
+const forgiveGrudge = () => {
+  $.ajax({
+    url: '/api/grudges',
+    type: 'patch',
+    data: {
+      forgiven: true,
+      id: id
+    }
+  });
+};
 
 $.get('/api/grudges', (jsonData) => {
-  const id = parseInt(window.location.pathname.split("/")[1]);
-  console.log(jsonData);
   jsonData.forEach((grudge) => {
     if(grudge.id === id) {
-      console.log(grudge)
       $display.append((`
                       <h2>${grudge.name}</h2>
                       <p>${grudge.offense}</p>
-                      <input class="forgive-button" type="submit" value="Forgive" />
+                      <input onClick="forgiveGrudge()" class="forgive-button" type="submit" value="Forgive" />
                   `))
     }
   });
