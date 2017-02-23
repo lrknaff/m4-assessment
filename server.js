@@ -33,7 +33,7 @@ app.get('/api/grudges', (req, res) => {
             res.status(200).json(grudges)
           })
           .catch((error) => {
-            console.error(error)
+            console.error('error', error)
           });
 });
 
@@ -50,7 +50,7 @@ app.post('/api/grudges', (req, res) => {
             res.status(200).json(payload[0])
           })
           .catch((error) => {
-            console.log(error)
+            console.log('error', error)
           });
 });
 

@@ -2,9 +2,9 @@ const $list = $('.hate-list');
 
 const displayGrudgeList = (jsonData) => {
   $list.append(`
-                <div>list</div>
-               `)
-};
+    <li id=${jsonData.id}>${jsonData.name}<li>
+    `)
+  };
 
 const addGrudgeToDb = (grudgeName, grudgeOffense) => {
   $.ajax({
@@ -13,8 +13,14 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
     data: {
       name: grudgeName,
       offense: grudgeOffense
-    }
+    },
+    success: displayGrudgeList
   });
+};
+
+
+const displayGrudgeCount = (jsonData) => {
+
 };
 
 const clearForm = () => {
@@ -32,7 +38,6 @@ $.get('/api/grudges', (jsonData) => {
 });
 
 $('.add-offender-button').on('click', function() {
-
   const grudgeName = $('.name-input').val();
   const grudgeOffense = $('.offense-input').val();
 
