@@ -22,7 +22,6 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
   });
 };
 
-
 const displayGrudgeCount = (jsonData) => {
   $.get('api/grudges', (jsonData) => {
     $('.hate-list-count').html(`Number of offenders: ${jsonData.length}`)
