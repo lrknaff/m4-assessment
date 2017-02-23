@@ -24,7 +24,9 @@ app.use(
      })
  );
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+app.use('/:id', express.static(path.join(__dirname, 'public/unique')));
 
 app.get('/api/grudges', (req, res) => {
   database('grudges').select().table('grudges')
@@ -49,7 +51,22 @@ app.post('/api/grudges', (req, res) => {
             res.status(200).json(payload[0])
           })
           .catch((error) => {
-            console.log('error', error)
+            console.error('error', error)
+          });
+});
+
+app.patch('/api/grudges', (req, res) => {
+  const { id, forgiven } = req.body;
+
+  database('grudges').where('id', id).first()
+          .update({ forgiven: forgiven })
+          .returning([ 'forgiven' ])
+          .then(function(payload) {
+            console.log(payload)
+            response.status(200).json(payload[0])
+          })
+          .catch(function(error) {
+            console.error('error', error)
           });
 });
 
