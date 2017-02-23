@@ -2,7 +2,9 @@ const $list = $('.hate-list');
 
 const displayGrudgeList = (jsonData) => {
   $list.append(`
-    <li id=${jsonData.id}>${jsonData.name}<li>
+    <a href=/${jsonData.id}
+      <li id=${jsonData.id}>${jsonData.name}<li>
+    </a>
     `)
   };
 
@@ -12,7 +14,8 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
     type: 'post',
     data: {
       name: grudgeName,
-      offense: grudgeOffense
+      offense: grudgeOffense,
+      id: id
     },
     success: function(jsonData) {
       console.log(jsonData);
@@ -80,7 +83,9 @@ const sortByName = () => {
 
     sortedNames.forEach((grudge) => {
       $list.append((`
-                    <li>${grudge.name}<li>
+                    <a href=/${grudge.id}>
+                      <li id=${grudge.id}>${grudge.name}<li>
+                    </a>
                   `))
     });
   });
@@ -107,7 +112,9 @@ const sortByDate = () => {
 
     sortedDates.forEach((grudge) => {
       $list.append((`
-                    <li>${grudge.name}<li>
+                    <a href=/${grudge.id}>
+                      <li id=${grudge.id}>${grudge.name}<li>
+                    </a>
                   `))
     });
   });
@@ -117,7 +124,9 @@ $.get('/api/grudges', (jsonData) => {
   console.log(jsonData);
   jsonData.forEach((grudge) => {
     $list.append((`
-                  <li>${grudge.name}<li>
+                    <a href=/${grudge.id}>
+                      <li id=${grudge.id}>${grudge.name}<li>
+                    </a>
                 `))
   });
   displayGrudgeCount(jsonData);
