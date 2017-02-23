@@ -24,7 +24,9 @@ app.use(
      })
  );
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
+
+app.use('/:id', express.static(path.join(__dirname, 'public/unique')));
 
 app.get('/api/grudges', (req, res) => {
   database('grudges').select().table('grudges')
