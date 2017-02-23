@@ -45,8 +45,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+/* colors */
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7em;
+  font-weight: 900;
+  margin: 45px; }
+  h1 span {
+    color: #EC0C03; }
+
 * {
   box-sizing: border-box; }
-
-body {
-  background-color: thistle; }
