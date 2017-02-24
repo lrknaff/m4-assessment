@@ -127,12 +127,19 @@ header hr {
 .hate-list-section {
   margin: 0 auto;
   position: relative;
-  width: 75%;
-  text-align: right; }
+  width: 75%; }
   .hate-list-section a {
     text-decoration: none; }
   .hate-list-section li {
     margin-bottom: 10px; }
+  .hate-list-section input {
+    background-color: #EC0C03;
+    border-style: none;
+    color: white;
+    height: 44px;
+    margin: 5px;
+    width: 150px;
+    cursor: pointer; }
 
 .individual-grudge {
   position: relative;
