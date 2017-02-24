@@ -1,7 +1,10 @@
 #Grudge-Box
 >An app for storing a list of all the people who have wronged you.
 
-####Built with:
+###View
+[Grudge Box](https://lk-grudge-box.herokuapp.com/)
+
+###Built with:
 * express
 * node
 * JavaScript
@@ -9,4 +12,12 @@
 * PostgreSQL
 * HTML/CSS
 
-####Installation
+###Installation
+####Install
+'npm install'
+
+####Run
+'npm start'
+
+####Test
+'npm run test'
