@@ -2,9 +2,9 @@ const $list = $('.hate-list');
 
 const displayGrudgeList = (jsonData) => {
   $list.append(`
-    <a href=/${jsonData.id}
-      <li id=${jsonData.id}>${jsonData.name}<li>
-    </a>
+      <li id=${jsonData.id}>
+        <a href=/${jsonData.id}>${jsonData.name}</a>
+      </li>
     `)
   };
 
@@ -109,9 +109,9 @@ const sortByDate = () => {
 const displaySorted = (sorted) => {
   sorted.forEach((grudge) => {
     $list.append((`
-                  <a href=/${grudge.id}>
-                    <li id=${grudge.id}>${grudge.name}<li>
-                  </a>
+                    <li id=${grudge.id}>
+                      <a href=/${grudge.id}>${grudge.name}</a>
+                    </li>
                 `))
   });
 };
@@ -119,9 +119,9 @@ const displaySorted = (sorted) => {
 $.get('/api/grudges', (jsonData) => {
   jsonData.forEach((grudge) => {
     $list.append((`
-                    <a href=/${grudge.id}>
-                      <li id=${grudge.id}>${grudge.name}<li>
-                    </a>
+                      <li id=${grudge.id}>
+                        <a href=/${grudge.id}>${grudge.name}</a>
+                      </li>
                 `))
   });
   displayGrudgeCount(jsonData);
