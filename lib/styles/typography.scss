@@ -12,8 +12,20 @@ h1 {
   }
 }
 
+h2 {
+  font-size: 4em;
+  font-weight: 900;
+}
+
 h3 {
   font-size: 2em;
   font-weight: 900;
   padding-bottom: 10px;
+}
+
+li, a {
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3em;
+  text-decoration: none;
 }
