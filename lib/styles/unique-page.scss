@@ -1,0 +1,19 @@
+.individual-grudge {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 150px;
+  width: 75%;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  input {
+    background-color: $blue;
+    border-style: none;
+    color: white;
+    height: 44px;
+    width: 150px;
+    cursor: pointer;
+  }
+}

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grudge Box</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
     <link rel="stylesheet"  type="text/css" href="/styles/index.css">
   </head>
   <body>
@@ -17,21 +17,25 @@
 
     <section class="hate-form-section">
       <div class="hate-form">
-        <label>
-          Name of offender:
+        <div class="input-field">
+          <label>
+            Name of offender:
+          </label>
           <input class="name-input" type="text" placeholder="Name of offender" />
-        </label>
-        <label>
-          Offense:
+        </div>
+        <div class="input-field">
+          <label>
+            Offense:
+          </label>
           <input class="offense-input" type="text" placeholder="Offense" />
-        </label>
-        <input class="add-offender-button" type="submit" value="Add" />
+        </div>
+        <input class="add-offender-button" type="submit" value="Add Grudge" />
       </div>
     </section>
 
-    <h3 class="hate-list-count">Number of offenders:</h3>
-    <h3 class="unforgiven-count">Number of unforgiven:</h3>
-    <h3 class="forgiven-count">Number of forgiven:</h3>
+    <h3 class="hate-list-count"></h3>
+    <h3 class="unforgiven-count"></h3>
+    <h3 class="forgiven-count"></h3>
 
     <section class="hate-list-section">
       <input class="sort-by-date" type="submit" value="Date sort" />

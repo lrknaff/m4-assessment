@@ -16,9 +16,9 @@ $.get('/api/grudges', (jsonData) => {
   jsonData.forEach((grudge) => {
     if(grudge.id === id) {
       $display.append((`
-                      <h2>${grudge.name}</h2>
-                      <p>${grudge.offense}</p>
-                      <input onClick="forgiveGrudge()" class="forgive-button" type="submit" value="Forgive" />
+                        <h2>${grudge.name}</h2>
+                        <p>${grudge.offense}</p>
+                        <input onClick="forgiveGrudge()" class="forgive-button" type="submit" value="Forgive" />
                   `))
     }
   });
