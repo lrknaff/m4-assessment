@@ -8,14 +8,13 @@ const displayGrudgeList = (jsonData) => {
     `)
   };
 
-const addGrudgeToDb = (grudgeName, grudgeOffense) => {
+const addGrudgeToDb = (grudgeName, grudgeOffense, id) => {
   $.ajax({
     url: '/api/grudges',
     type: 'post',
     data: {
       name: grudgeName,
-      offense: grudgeOffense,
-      id: id
+      offense: grudgeOffense
     },
     success: function(jsonData) {
       console.log(jsonData);
@@ -29,7 +28,7 @@ const addGrudgeToDb = (grudgeName, grudgeOffense) => {
 
 const displayGrudgeCount = (jsonData) => {
   $.get('api/grudges', (jsonData) => {
-    $('.hate-list-count').html(`Number of offenders: ${jsonData.length}`)
+    $('.hate-list-count').html(`Grudges: <span>${jsonData.length}</span>`)
   });
 };
 
@@ -41,7 +40,7 @@ const displayUnforgivenCount = (jsonData) => {
         count++;
       }
     }
-    $('.unforgiven-count').html(`Number of unforgiven: ${count}`)
+    $('.unforgiven-count').html(`Unforgiven: <span>${count}</span>`)
   });
 };
 
@@ -53,7 +52,7 @@ const displayForgivenCount = (jsonData) => {
         count++;
       }
     }
-    $('.forgiven-count').html(`Number of forgiven: ${count}`)
+    $('.forgiven-count').html(`Forgiven: <span>${count}</span>`)
   });
 };
 
