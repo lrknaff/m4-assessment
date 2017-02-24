@@ -17,7 +17,6 @@ const addGrudgeToDb = (grudgeName, grudgeOffense, id) => {
       offense: grudgeOffense
     },
     success: function(jsonData) {
-      console.log(jsonData);
       displayGrudgeList(jsonData);
       displayGrudgeCount(jsonData);
       displayUnforgivenCount(jsonData);
@@ -118,7 +117,6 @@ const displaySorted = (sorted) => {
 };
 
 $.get('/api/grudges', (jsonData) => {
-  console.log(jsonData);
   jsonData.forEach((grudge) => {
     $list.append((`
                     <a href=/${grudge.id}>
