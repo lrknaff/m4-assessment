@@ -80,13 +80,7 @@ const sortByName = () => {
 
     $list.html('');
 
-    sortedNames.forEach((grudge) => {
-      $list.append((`
-                    <a href=/${grudge.id}>
-                      <li id=${grudge.id}>${grudge.name}<li>
-                    </a>
-                  `))
-    });
+    displaySorted(sortedNames);
   });
 };
 
@@ -109,13 +103,17 @@ const sortByDate = () => {
 
     $list.html('');
 
-    sortedDates.forEach((grudge) => {
-      $list.append((`
-                    <a href=/${grudge.id}>
-                      <li id=${grudge.id}>${grudge.name}<li>
-                    </a>
-                  `))
-    });
+    displaySorted(sortedDates);
+  });
+};
+
+const displaySorted = (sorted) => {
+  sorted.forEach((grudge) => {
+    $list.append((`
+                  <a href=/${grudge.id}>
+                    <li id=${grudge.id}>${grudge.name}<li>
+                  </a>
+                `))
   });
 };
 

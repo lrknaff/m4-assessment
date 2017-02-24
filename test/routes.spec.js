@@ -1,6 +1,7 @@
 const express = require('express');
 const chai = require('chai');
 const should = chai.should();
+const expect = chai.expect();
 const chaiHttp = require('chai-http');
 const server = require('../server');
 
@@ -23,6 +24,24 @@ describe('GET /api/grudges', function() {
       done()
     })
   });
+  it('should return a grudge list greater than 0', function(done) {
+    chai.request(server)
+    .get('/api/grudges')
+    .end(function(err, res) {
+      res.body.length.should.not.eql(0) // jshint ignore:line
+      done()
+    })
+  });
+  it('should return a grudge list with keys', function(done) {
+    chai.request(server)
+    .get('/api/grudges')
+    .end(function(err, res) {
+      res.body[0].should.include.keys(
+        'id', 'name', 'offense', 'forgiven', 'created_at'
+      ); // jshint ignore:line
+      done()
+    })
+  });
   it('should be an array', function(done) {
     chai.request(server)
     .get('/api/grudges')
@@ -30,7 +49,7 @@ describe('GET /api/grudges', function() {
       res.body.should.be.a('array');
       done()
     })
-  })
+  });
 });
 
 describe('GET /', function() {
@@ -67,6 +86,26 @@ describe('GET /:id', function() {
     .end(function(err, res) {
       res.should.have.status(404);
       done()
+    })
+  });
+});
+
+describe('POST /api/grudges', function() {
+  it('should respond with a success message that a grudge was added', (done) => {
+    chai.request(server)
+    .post('/api/grudges')
+    .send({
+      name: 'Lacey',
+      offense: 'Being the worst',
+      forgiven: false
+    })
+    .end((err, res) => {
+      should.not.exist(err);
+      res.should.have.status(200);
+      res.body.should.include.keys(
+        'id', 'name', 'forgiven'
+      );
+      done();
     })
   });
 });
