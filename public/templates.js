@@ -10,6 +10,6 @@ const grudgeListTemplate = (grudge) => {
 
 const grudgeCountTemplate = (title, grudgeCount) => {
   return (
-   `${title}: <span>${grudgeCount.length}</span>`
+   `${title}: <span>${grudgeCount}</span>`
   )
 };
