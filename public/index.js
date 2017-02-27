@@ -1,12 +1,54 @@
 const $list = $('.hate-list');
+const $hateCount = $('.hate-list-count');
+const $unforgivenCount = $('.forgiven-count');
+const $forgivenCount = $('.unforgiven-count');
+
+$(document).ready(() => {
+  displayAll();
+});
+
+const displayAll = () => {
+  $.get('/api/grudges', (jsonData) => {
+      displayGrudgeList((jsonData))
+      displayGrudgeCount(jsonData);
+      displayUnforgivenCount(jsonData);
+      displayForgivenCount(jsonData);
+    });
+};
 
 const displayGrudgeList = (jsonData) => {
-  $list.append(`
-      <li id=${jsonData.id}>
-        <a href=/${jsonData.id}>${jsonData.name}</a>
-      </li>
-    `)
-  };
+  jsonData.forEach((grudge) => {
+    $list.append(grudgeListTemplate(grudge))
+  });
+};
+
+const displayGrudgeCount = (jsonData) => {
+  const grudgeCountTitle = "Grudges"
+
+  $.get('api/grudges', (jsonData) => {
+    displayCount($hateCount, grudgeCountTemplate(grudgeCountTitle, jsonData.length))
+  });
+};
+
+const displayUnforgivenCount = (jsonData) => {
+  $.get('api/grudges', (jsonData) => {
+    const count = countGrudges(jsonData, false);
+
+    displayCount($unforgivenCount, grudgeCountTemplate("Unforgiven", count));
+  });
+};
+
+const displayForgivenCount = (jsonData) => {
+  $.get('api/grudges', (jsonData) => {
+    const count = countGrudges(jsonData, true);
+
+    displayCount($forgivenCount, grudgeCountTemplate("Forgiven", count));
+  });
+};
+
+const displayCount = (element, display) => {
+  element.html(display);
+};
 
 const addGrudgeToDb = (grudgeName, grudgeOffense, id) => {
   $.ajax({
@@ -17,42 +59,21 @@ const addGrudgeToDb = (grudgeName, grudgeOffense, id) => {
       offense: grudgeOffense
     },
     success: function(jsonData) {
-      displayGrudgeList(jsonData);
-      displayGrudgeCount(jsonData);
-      displayUnforgivenCount(jsonData);
-      displayForgivenCount(jsonData);
+      displayAll(jsonData);
     }
   });
 };
 
-const displayGrudgeCount = (jsonData) => {
-  $.get('api/grudges', (jsonData) => {
-    $('.hate-list-count').html(`Grudges: <span>${jsonData.length}</span>`)
-  });
-};
+const countGrudges = (jsonData, boolean) => {
+  let count = 0;
 
-const displayUnforgivenCount = (jsonData) => {
-  $.get('api/grudges', (jsonData) => {
-    let count = 0;
-    for(var i = 0; i < jsonData.length; i++) {
-      if(jsonData[i].forgiven === false) {
-        count++;
-      }
+  for(var i = 0; i < jsonData.length; i++) {
+    if(jsonData[i].forgiven === boolean) {
+      count++;
     }
-    $('.unforgiven-count').html(`Unforgiven: <span>${count}</span>`)
-  });
-};
+  };
 
-const displayForgivenCount = (jsonData) => {
-  $.get('api/grudges', (jsonData) => {
-    let count = 0;
-    for(var i = 0; i < jsonData.length; i++) {
-      if(jsonData[i].forgiven === true) {
-        count++;
-      }
-    }
-    $('.forgiven-count').html(`Forgiven: <span>${count}</span>`)
-  });
+  return count;
 };
 
 const clearForm = () => {
@@ -60,74 +81,53 @@ const clearForm = () => {
   $('.name-input').val('')
 };
 
+const sortName = (grudges) => {
+  return grudges.sort((a, b) => {
+    const nameA = a.name.replace(/\s+/g, '').toUpperCase();
+    const nameB = b.name.replace(/\s+/g, '').toUpperCase();
+
+    if (nameA < nameB) {
+      return 1;
+    } else if (nameB < nameA) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+const sortDate = (grudges) => {
+  return grudges.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    if (dateA < dateB) {
+      return 1;
+    } else if (dateB < dateA) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+};
+
 const sortByName = () => {
-  const sortDirection = $('.sort-by-name').attr("class");
-
   $.get('/api/grudges', (jsonData) => {
-    let sortedNames = jsonData.sort((a, b) => {
-      const nameA = a.name.replace(/\s+/g, '').toUpperCase();
-      const nameB = b.name.replace(/\s+/g, '').toUpperCase();
-
-      if (nameA < nameB) {
-        return 1;
-      } else if (nameB < nameA) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
+    let sortedNames = sortName(jsonData);
 
     $list.html('');
-
-    displaySorted(sortedNames);
+    displayGrudgeList(sortedNames);
   });
 };
 
 const sortByDate = () => {
-  const sortDirection = $('.sort-by-date').attr("class");
-
   $.get('/api/grudges', (jsonData) => {
-    let sortedDates = jsonData.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-
-      if (dateA < dateB) {
-        return 1;
-      } else if (dateB < dateA) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
+    let sortedDates = sortDate(jsonData);
 
     $list.html('');
-
-    displaySorted(sortedDates);
+    displayGrudgeList(sortedDates);
   });
 };
-
-const displaySorted = (sorted) => {
-  sorted.forEach((grudge) => {
-    $list.append((`
-                    <li id=${grudge.id}>
-                      <a href=/${grudge.id}>${grudge.name}</a>
-                    </li>
-                `))
-  });
-};
-
-$.get('/api/grudges', (jsonData) => {
-  jsonData.forEach((grudge) => {
-    $list.append((`
-                      <li id=${grudge.id}>
-                        <a href=/${grudge.id}>${grudge.name}</a>
-                      </li>
-                `))
-  });
-  displayGrudgeCount(jsonData);
-  displayUnforgivenCount(jsonData);
-  displayForgivenCount(jsonData);
-});
 
 $('.add-offender-button').on('click', function() {
   const grudgeName = $('.name-input').val();
