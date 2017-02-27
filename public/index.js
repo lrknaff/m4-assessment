@@ -81,7 +81,7 @@ const clearForm = () => {
   $('.name-input').val('')
 };
 
-const sort = (grudges) => {
+const sortName = (grudges) => {
   return grudges.sort((a, b) => {
     const nameA = a.name.replace(/\s+/g, '').toUpperCase();
     const nameB = b.name.replace(/\s+/g, '').toUpperCase();
@@ -96,9 +96,24 @@ const sort = (grudges) => {
   });
 };
 
+const sortDate = (grudges) => {
+  return grudges.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    if (dateA < dateB) {
+      return 1;
+    } else if (dateB < dateA) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+};
+
 const sortByName = () => {
   $.get('/api/grudges', (jsonData) => {
-    let sortedNames = sort(jsonData);
+    let sortedNames = sortName(jsonData);
 
     $list.html('');
     displayGrudgeList(sortedNames);
@@ -107,21 +122,9 @@ const sortByName = () => {
 
 const sortByDate = () => {
   $.get('/api/grudges', (jsonData) => {
-    let sortedDates = jsonData.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-
-      if (dateA < dateB) {
-        return 1;
-      } else if (dateB < dateA) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
+    let sortedDates = sortDate(jsonData);
 
     $list.html('');
-
     displayGrudgeList(sortedDates);
   });
 };
