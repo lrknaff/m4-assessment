@@ -1,4 +1,9 @@
-describe('unit testing', function() {
+describe('Presentation and Interaction', function() {
+  it('can handle receiving name and id', function() {
+    var name = 'Anthony'
+
+  });
+
   it('sortByName()', function() {
     const grudgeArray = [
   {
@@ -20,5 +25,24 @@ describe('unit testing', function() {
     created_at: '2014-09-10T16:44:28.015Z'
   }
 ];
+  })
+});
+
+
+describe('Data Management', function() {
+  it('', function() {
+
+  })
+});
+
+describe('Application State', function() {
+  it('', function() {
+
+  })
+});
+
+describe('Glue', function() {
+  it('', function() {
+
   })
 });
